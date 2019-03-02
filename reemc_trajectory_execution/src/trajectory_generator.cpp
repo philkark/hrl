@@ -1,0 +1,32 @@
+//local
+#include "footstep_executor/trajectory_generator.h"
+
+//////////////////////////////////////////////////////////////////
+
+//////////////////// PUBLIC MEMBERS //////////////////////////////
+
+//////////////////////////////////////////////////////////////////
+
+void TrajectoryGenerator::setPoses(const Pose6D &initPose, const Pose6D &goalPose)
+{
+  this->initPose = initPose;
+  this->goalPose = goalPose;
+}
+
+//////////////////////////////////////////////////////////////////
+
+//////////////////// PROTECTED MEMBERS ///////////////////////////
+
+//////////////////////////////////////////////////////////////////
+
+TrajectoryGenerator::TrajectoryGenerator() : initPose(Pose6D(0.0)), goalPose(Pose6D(0.0))
+{
+}
+
+void TrajectoryGenerator::adjustAngle(Real &angle) const
+{
+  if (angle > M_PI)
+    angle -= 2 * M_PI;
+  else if (angle < -M_PI)
+    angle += 2 * M_PI;
+}

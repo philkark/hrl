@@ -1,0 +1,9 @@
+<library path="lib/librviz_ros_communication_plugin">
+  <class name="rviz_ros_communication_plugin/ReemcPanel"
+         type="rviz_ros_communication_plugin::RosCommunicationPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget.
+    </description>
+  </class>
+</library>

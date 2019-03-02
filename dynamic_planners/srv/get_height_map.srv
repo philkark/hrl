@@ -1,0 +1,15 @@
+float32 min_x
+float32 max_x
+float32 min_y
+float32 max_y
+float32 resolution
+bool auto_size
+---
+float32 min_x
+float32 max_x
+float32 min_y
+float32 max_y
+uint32 size_x
+uint32 size_y
+float32[] height_data
+gazebo_object[] objects

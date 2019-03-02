@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <arg name="world" default="simple" />
+  <arg name="gui" default="false" />
+  <arg name="controller" default="true" />
+  <arg name="executor" default="false" />
+
+  <include file="$(find reemc_gazebo)/launch/reemc_gazebo.launch">
+    <arg name="robot" value="full_no_hands" />
+    <arg name="world" value="$(arg world)" />
+    <arg name="gui" value="$(arg gui)" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find dynamic_planners)/config/rviz_conf_reemc_simulation.rviz" />
+
+  <group if="$(arg controller)">
+    <node name="dynamic_rviz_controller_node" pkg="dynamic_planners" type="dynamic_rviz_controller" output="screen" />
+  </group>
+
+  <group if="$(arg executor)">
+    <node name="footstep_execution_node" pkg="reemc_trajectory_execution" type="footstep_execution_node" output="screen" />
+  </group>
+</launch>
+

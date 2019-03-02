@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<package format="2">
+	<name>reemc_trajectory_execution</name>
+	<version>0.0.0</version>
+	<description>The reemc_trajectory_execution package</description>
+	<maintainer email="philkark@cs.uni-bonn.de">Philipp Karkowski</maintainer>
+	<license>BSD</license>
+
+	<buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>math_std</build_depend>
+    <build_depend>tools_std</build_depend>
+	<build_depend>roscpp</build_depend>
+	<build_depend>actionlib</build_depend>
+	<build_depend>sensor_msgs</build_depend>
+	<build_depend>control_msgs</build_depend>
+	<build_depend>trajectory_msgs</build_depend>
+    <build_depend>geometry_msgs</build_depend>
+	<build_depend>std_msgs</build_depend>	
+	<build_depend>kdl_parser</build_depend>
+	<build_depend>orocos_kdl</build_depend>
+	<build_depend>tf</build_depend>
+    <build_depend>message_generation</build_depend>
+    
+    <build_export_depend>math_std</build_export_depend>
+    <build_export_depend>tools_std</build_export_depend>
+    <build_export_depend>roscpp</build_export_depend>
+	<build_export_depend>actionlib</build_export_depend>
+	<build_export_depend>sensor_msgs</build_export_depend>
+	<build_export_depend>control_msgs</build_export_depend>
+	<build_export_depend>trajectory_msgs</build_export_depend>
+    <build_export_depend>geometry_msgs</build_export_depend>
+	<build_export_depend>std_msgs</build_export_depend>	
+	<build_export_depend>kdl_parser</build_export_depend>
+	<build_export_depend>orocos_kdl</build_export_depend>
+	<build_export_depend>tf</build_export_depend>
+    <build_export_depend>message_generation</build_export_depend>
+    
+    <exec_depend>math_std</exec_depend>
+    <exec_depend>tools_std</exec_depend>
+    <exec_depend>roscpp</exec_depend>
+	<exec_depend>actionlib</exec_depend>
+	<exec_depend>sensor_msgs</exec_depend>
+	<exec_depend>control_msgs</exec_depend>
+	<exec_depend>trajectory_msgs</exec_depend>
+    <exec_depend>geometry_msgs</exec_depend>
+	<exec_depend>std_msgs</exec_depend>	
+	<exec_depend>kdl_parser</exec_depend>
+	<exec_depend>orocos_kdl</exec_depend>
+	<exec_depend>tf</exec_depend>
+    <exec_depend>message_generation</exec_depend>
+</package>
