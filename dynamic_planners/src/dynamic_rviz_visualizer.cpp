@@ -250,7 +250,7 @@ void DynamicRvizVisualizer::addMarkerSphere(const dynamic_planners::gazebo_objec
   marker.header.frame_id = "map";
   marker.type = visualization_msgs::Marker::SPHERE;
   marker.action = visualization_msgs::Marker::ADD;
-  marker.scale.x = marker.scale.y = marker.scale.z = object.radius;
+  marker.scale.x = marker.scale.y = marker.scale.z = object.radius * 2.0;
   marker.color.a = 0.5;
   marker.color.r = marker.color.g = 0.0;
   marker.color.b = 0.2;
