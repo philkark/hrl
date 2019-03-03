@@ -100,12 +100,12 @@ The controller takes the current poses of the base, camera, and feet from the to
 
 A gazebo world needs to be running that contains the plugin that is used to request the global height map via ros service call. The plugin can be added to the world by adding the corresponding plugin tag at the bottom of the *.world* file right above the closing *world tag*:
 
-``
+```
 ...
   <plugin name="gazebo_plugin_get_height_map_service" filename="libgazebo_plugin_get_height_map_service.so"/>
 </world>
 ...
-``
+```
 
 #### Executing Footsteps
 
