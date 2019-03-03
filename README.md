@@ -4,7 +4,27 @@ This repository contains several packages for segmenting depth images into plana
 
 There are four catkin packages, which are all necessary to run the mapping and planning framework.
 
+# Workspace Setup
+
+To setup the full catkin workspace, the following repositories are needed:
+
+* [hrl](https://github.com/philkark/hrl)
+* [hrl_reemc_forks](https://github.com/philkark/hrl_reemc_forks)
+* [reemc_trajectory_execution](https://github.com/philkark/reemc_trajectory_execution)
+
+Additionally, other ros packages are required for the correct functioning of the simulation etc. These include orocos kdl, gazebo, etc. When building the catkin workspace the missing packages will be mentioned accordingly.
+
 ## dynamic_planners
+
+The main package that contains the code for mapping, planning, visualization, and a controller node to correctly combine the corresponding libraries.
+
+The package contains a launch file to launch all necessary nodes for planning and executing footsteps in simulation.
+
+``
+$ roslaunch dynamic_planners reemc_simulation.launch
+``
+
+This launches rviz with the required rviz settings file that already contains the communication plugin (see below), used by the controller, the reemc simulation, the controller that contains the mapping and planning frameworks, and the footstep execution node.
 
 ## rviz_ros_communiation_plugin
 
@@ -66,4 +86,33 @@ Contains a library with several math related types, such as points/vectors, matr
 
 ## tools_std
 
-Contains a library with several different classes that help in loading ros parameters, timing experiments, etc. 
+Contains a library with several different classes that help in loading ros parameters, timing experiments, etc.
+
+# Requirements
+
+When launching the planning and mapping framework (as described in *dynamic_planners*) without the reemc simulation framework (e.g., for standalone), a few things are required by the controller to function properly.
+
+#### Base, Camera, and Foot Transforms
+
+The controller takes the current poses of the base, camera, and feet from the topic *reemc_base_camera_poses*. It should contain four poses in the following order: pose of the *base_link* in the world frame; transform from the *base_link* to the *camera_link*; transform from the *base_link* to the *left_sole_link*; transform from the *base_link* to the *right_sole_link*.
+
+#### Gazebo World Plugin
+
+A gazebo world needs to be running that contains the plugin that is used to request the global height map via ros service call. The plugin can be added to the world by adding the corresponding plugin tag at the bottom of the *.world* file right above the closing *world tag*:
+
+``
+...
+  <plugin name="gazebo_plugin_get_height_map_service" filename="libgazebo_plugin_get_height_map_service.so"/>
+</world>
+...
+``
+
+#### Executing Footsteps
+
+In general, to do any correct footstep executions, the reemc simulator needs to be running and publish the current joint states to the topic *joint_states*. This is done automatically, when running the simulation from [hrl_reemc_forks](https://github.com/philkark/hrl_reemc_forks).
+
+# Issues
+
+Currently, there is an issue with the correct conversion from the depth image into the height map, when using the simulated depth camera of the reemc in [hrl_reemc_forks](https://github.com/philkark/hrl_reemc_forks). The camera is added as a sensor along with a sensor plugin in the file *hrl_reemc_forks/reemc_robot/reemc_description/urdf/head/head.urdf.xacro* with the reference *rgbd_camera_link*.
+
+The fast conversion from depth image to height map is done by first creating a *unit vector map* that contains a 3D vector for each pixel of the depth image which points in the direction from the camera link to the depth pixel and has a z component of 1. This allows to only multiply the 3D vector with the distance value of the corresponding depth pixel and get the 3D coordinate in the camera frame straight away. Computing the *unit vector map* is done in *dynamic_planners/src/lib_dynamic_height_map/dynamic_height_map.cpp* in the method *initializeUnitImage* and converting the depth image into the height map is done in *getFrameFromDepthImageBuffer*.
